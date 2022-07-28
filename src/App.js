@@ -2,7 +2,6 @@ import React,{useState,useEffect} from "react";
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
 import Home from "./components/Home";
 import Search from "./components/Search";
 
@@ -10,7 +9,7 @@ const BooksApp = () =>{
 
   const [books, setBooks] = useState([]);
   const [booksFromSearch, setbooksFromSearch] = useState([]);
-  const [search, setsearch] = useState([]);
+  const [search, setsearch] = useState('');
   const [loadSearch, setloadSearch] = useState(false);
   useEffect(() => {
     const getBooks = async () => {
@@ -19,7 +18,6 @@ const BooksApp = () =>{
   };
   getBooks();
 }, []);
-
 
  const changeShelf = async (book, shelf) => {
     await BooksAPI.update(book, shelf);
@@ -39,20 +37,19 @@ const BooksApp = () =>{
   const handleBooksSearch = async (search) => {
     await BooksAPI.search(search).then((res) => {
       if (res && !res.error) {
-   
-      res.map((booksSearch) => {
-        console.log("aaaaaa",booksSearch)    
-      books.forEach((book) => {
-              if (booksSearch.id === book.id) booksSearch.shelf = book.shelf
-            })
-            return booksSearch;
-            setbooksFromSearch(booksSearch);
-          })
-          setloadSearch(true);
-        
+        console.log("1",res)  
+        setbooksFromSearch(res.map((booksSearch) => {
+          books.forEach((book) => {
+                  if (booksSearch.id === book.id) booksSearch.shelf = book.shelf
+                })
+                return booksSearch;
+              }))
+       
+            setloadSearch(true);
+          
       } else {
-          setbooksFromSearch(`No books like: " ${search} "`);
-          setloadSearch(true);
+          setbooksFromSearch([]);
+          setloadSearch(false);
         
       }
     }); 
