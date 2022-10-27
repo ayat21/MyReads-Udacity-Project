@@ -1,0 +1,23 @@
+{
+    "manfaz": {
+        "فورى":[
+       
+            {
+                "Id": "1",
+                "callPackage": "Bonus 50",
+                "callPackagePrice": "55"
+            },
+            {
+                "Id": "2",
+                "callPackage": "Bonus 60",
+                "callPackagePrice": "50"
+            },
+            {
+                "Id": "3",
+                "callPackage": "Bonus 60",
+                "callPackagePrice": "65"
+            }
+        ]
+        
+        }
+}
